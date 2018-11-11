@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ims.mapper.VwOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ims.entity.VwOrder" >
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="ORDER_COST" property="orderCost" jdbcType="VARCHAR" />
+    <result column="ORDER_CUSTOMER" property="orderCustomer" jdbcType="VARCHAR" />
+    <result column="CRATE_TIME" property="crateTime" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFYER_TIME" property="lastModifyerTime" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFIER" property="lastModifier" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE_NAME" property="orderTypeName" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS_NAME" property="orderStatusName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ORDER_NO, ORDER_TYPE, ORDER_STATUS, ORDER_COST, ORDER_CUSTOMER, CRATE_TIME, CREATER, 
+    LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, REMARKS, ORDER_TYPE_NAME, ORDER_STATUS_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ims.entity.VwOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vw_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.ims.entity.VwOrderExample" >
+    delete from vw_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ims.entity.VwOrder" >
+    insert into vw_order (ORDER_NO, ORDER_TYPE, ORDER_STATUS, 
+      ORDER_COST, ORDER_CUSTOMER, CRATE_TIME, 
+      CREATER, LAST_MODIFYER_TIME, LAST_MODIFIER, 
+      IS_DELETED, REMARKS, ORDER_TYPE_NAME, 
+      ORDER_STATUS_NAME)
+    values (#{orderNo,jdbcType=INTEGER}, #{orderType,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{orderCost,jdbcType=VARCHAR}, #{orderCustomer,jdbcType=VARCHAR}, #{crateTime,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{lastModifyerTime,jdbcType=VARCHAR}, #{lastModifier,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{orderTypeName,jdbcType=VARCHAR}, 
+      #{orderStatusName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ims.entity.VwOrder" >
+    insert into vw_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE,
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS,
+      </if>
+      <if test="orderCost != null" >
+        ORDER_COST,
+      </if>
+      <if test="orderCustomer != null" >
+        ORDER_CUSTOMER,
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME,
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="orderTypeName != null" >
+        ORDER_TYPE_NAME,
+      </if>
+      <if test="orderStatusName != null" >
+        ORDER_STATUS_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCost != null" >
+        #{orderCost,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCustomer != null" >
+        #{orderCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTypeName != null" >
+        #{orderTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatusName != null" >
+        #{orderStatusName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ims.entity.VwOrderExample" resultType="java.lang.Integer" >
+    select count(*) from vw_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vw_order
+    <set >
+      <if test="record.orderNo != null" >
+        ORDER_NO = #{record.orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderType != null" >
+        ORDER_TYPE = #{record.orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        ORDER_STATUS = #{record.orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCost != null" >
+        ORDER_COST = #{record.orderCost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderCustomer != null" >
+        ORDER_CUSTOMER = #{record.orderCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crateTime != null" >
+        CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifier != null" >
+        LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTypeName != null" >
+        ORDER_TYPE_NAME = #{record.orderTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatusName != null" >
+        ORDER_STATUS_NAME = #{record.orderStatusName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vw_order
+    set ORDER_NO = #{record.orderNo,jdbcType=INTEGER},
+      ORDER_TYPE = #{record.orderType,jdbcType=VARCHAR},
+      ORDER_STATUS = #{record.orderStatus,jdbcType=VARCHAR},
+      ORDER_COST = #{record.orderCost,jdbcType=VARCHAR},
+      ORDER_CUSTOMER = #{record.orderCustomer,jdbcType=VARCHAR},
+      CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      ORDER_TYPE_NAME = #{record.orderTypeName,jdbcType=VARCHAR},
+      ORDER_STATUS_NAME = #{record.orderStatusName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
