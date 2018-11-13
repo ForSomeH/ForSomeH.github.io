@@ -17,7 +17,7 @@ public interface ImsOrderExtendService {
      * @param imsOrderExtend
      * @return
      */
-    public int saveOrderExtend(ImsOrderExtend imsOrderExtend);
+    int saveOrderExtend(ImsOrderExtend imsOrderExtend);
 
     /**
      * 查找一条订单的所有产品信息
@@ -25,12 +25,23 @@ public interface ImsOrderExtendService {
      * @param OrderNo
      * @return
      */
-    public List<VwOrderExtend> getOrderExtendInfo(Integer OrderNo);
+    List<VwOrderExtend> getOrderExtendInfo(Integer OrderNo);
 
     /**
-     * 批量删除订单产品信息
+     * * 批量删除订单产品信息
+     *
      * @param ids
+     * @param orderNo
      */
-    void deleteOrderExtends(List<Integer> ids,Integer orderNo);
+    void deleteOrderExtends(List<Integer> ids, Integer orderNo);
+
+    /**
+     * 更新商品已入库数量
+     *
+     * @param orderNo
+     * @param productNo
+     * @param productNum
+     */
+    void updateProductNum(int orderNo, int productNo, int productNum);
 
 }

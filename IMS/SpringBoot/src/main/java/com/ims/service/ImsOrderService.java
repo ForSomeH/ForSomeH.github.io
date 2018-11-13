@@ -15,7 +15,7 @@ public interface ImsOrderService {
      * @param imsOrder
      * @return
      */
-    public int saveOrder(ImsOrder imsOrder);
+    int saveOrder(ImsOrder imsOrder);
 
     /**
      * 删除
@@ -31,7 +31,7 @@ public interface ImsOrderService {
      * @param imsOrder
      * @return
      */
-    public int updateOrder(ImsOrder imsOrder);
+    int updateOrder(ImsOrder imsOrder);
 
     /**
      * 查询所有的订单

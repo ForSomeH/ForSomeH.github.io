@@ -54,5 +54,6 @@ public class CommonMethod {
     public void setCreator(BasModel basModel) {
         basModel.setCreater(getUser());
         basModel.setCrateTime(getDate());
+        basModel.setIsDeleted("N");
     }
 }

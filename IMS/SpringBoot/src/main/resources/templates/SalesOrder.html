@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
-    <title>订单明细表</title>
+    <title>出库单明细表</title>
     <style>
         /*表格居中显示*/
         td {
@@ -50,7 +50,7 @@
     <!--自定义js-->
     <script src="angular/angular.min.js"></script>
     <script src="extend/OmsOrderExtendCommon.js"></script>
-    <script src="extend/PurchaseOrder.js"></script>
+    <script src="extend/SaleOrder.js"></script>
 </head>
 
 <body class="no-skin" ng-app="myApp" ng-controller="personCtrl">
@@ -329,7 +329,7 @@
                     </li>
 
                     <li>
-                        <a a href="/orderMange" target="_self">入库管理</a>
+                        <a a href="/orderMangeOut" target="_self">出库管理</a>
                     </li>
                     <li class="active">新增订单</li>
                 </ul><!-- /.breadcrumb -->
@@ -364,10 +364,10 @@
                                 <div class="col-xs-3">
                                     <h4 class="header smaller lighter blue">订单类型:
                                         <select class="input-sm " ng-model="orderType" ng-disabled="true">
-                                            <option value="" selected>入库单（不可更改）</option>
+                                            <option value="" selected>出库单（不可更改）</option>
+                                            <option value="4">出库单</option>
                                             <option value="1">入库单</option>
-                                            <option value="2" >出库单</option>
-                                            <option value="3">报损单</option>
+
                                         </select>
                                     </h4>
                                 </div>
@@ -388,17 +388,17 @@
                                                 <i class="ace-icon fa fa-trash-o bigger-110"></i> 删除商品
                                             </button>
                                         </a>
+
                                         <a>
                                             <button class="btn btn-sm btn-success" ng-click="saveOrderExtend()">
                                                 <i class="glyphicon glyphicon-ok bigger-110"></i> 保存订单
                                             </button>
                                         </a>
                                         <a>
-                                            <button class="btn btn-sm btn-purple" ng-click="Warehousing()">
-                                                <i class="ace-icon fa fa-shopping-cart bigger-110"></i> 审核入库
+                                            <button class="btn btn-sm btn-purple" ng-click="Delivery()">
+                                                <i class="ace-icon fa fa-shopping-cart bigger-110"></i> 备货出库
                                             </button>
                                         </a>
-
                                     </div>
                                 </div>
                                 <div class="alert alert-block alert-success">
@@ -406,10 +406,11 @@
                                         <i class="ace-icon fa fa-times"></i>
                                     </button>
 
-                                    <i class="ace-icon fa fa-check green"></i> 欢迎使用进销存系统,请先选择客户，保存订单后再进行新增详细商品，新增商品后也记得要保存哦
+                                    <i class="ace-icon fa fa-check green"></i>
+                                    欢迎使用进销存系统,请先选择客户，保存订单后再进行新增详细商品，新增商品后也记得要保存哦
                                 </div>
                                 <div class="table-header">
-                                    计划采购商品详情列表
+                                    出库单商品详情列表
                                 </div>
 
                                 <!-- div.table-responsive -->
@@ -428,13 +429,14 @@
                                             </th>
                                             <th class="center">商品编码</th>
                                             <th class="hidden-480 center">商品名称</th>
-                                            <th class="center">商品分类</th>
+                                            <th class="hidden-480 center">商品分类</th>
                                             <th class="center">商品型号</th>
                                             <th class="hidden-480 center">单位</th>
                                             <th class="hidden-480 center">厂家</th>
-                                            <th class="hidden-480 center">进价(元)</th>
-                                            <th class="center">计划采购数量</th>
-                                            <th class="hidden-480 center">修改采购数量</th>
+                                            <th class="hidden-480 center">单价(元)</th>
+
+                                            <th class="center">销售数量</th>
+                                            <th class="hidden-480 center">修改商品数量</th>
                                         </tr>
                                         </thead>
 
@@ -481,7 +483,7 @@
                             <th class="hidden-480 center">型号</th>
                             <th class="hidden-480 center">单位</th>
                             <th class="hidden-480 center">厂家</th>
-                            <th class="center">进价</th>
+                            <th class="center">售价</th>
                             <th class="hidden-480 center">库存</th>
                         </tr>
                         </thead>
@@ -570,8 +572,7 @@
 <script src="assets/js/ace.min.js"></script>
 
 <!-- inline scripts related to this page -->
-
-<script src="dateTable/orderExtendDatetableMainIn.js"></script>
-<script src="dateTable/orderExtendDatetableIn.js"></script>
+<script src="dateTable/SaleOrderMainDT.js"></script>
+<script src="dateTable/SaleOrderDT.js"></script>
 </body>
 </html>

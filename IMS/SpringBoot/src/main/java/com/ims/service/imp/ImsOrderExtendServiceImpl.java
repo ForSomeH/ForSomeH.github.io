@@ -20,8 +20,8 @@ import java.util.List;
 public class ImsOrderExtendServiceImpl implements ImsOrderExtendService {
     @Resource
     ImsOrderExtendMapper imsOrderExtendMapper;
-     @Resource
-     VwOrderExtendMapper vwOrderExtendMapper;
+    @Resource
+    VwOrderExtendMapper vwOrderExtendMapper;
     @Autowired
     CommonMethod commonMethod;
 
@@ -79,5 +79,22 @@ public class ImsOrderExtendServiceImpl implements ImsOrderExtendService {
             imsOrderExtend.setIsDeleted("Y");
             imsOrderExtendMapper.updateByPrimaryKey(imsOrderExtend);
         }
+    }
+
+    /**
+     * 更新商品已入库数量
+     *
+     * @param orderNo
+     * @param productNo
+     * @param productNum
+     */
+    @Override
+    public void updateProductNum(int orderNo, int productNo, int productNum) {
+        ImsOrderExtendExample imsOrderExtendExample = new ImsOrderExtendExample();
+        imsOrderExtendExample.createCriteria().andOrderNoEqualTo(orderNo).andProductNoEqualTo(productNo);
+        ImsOrderExtend imsOrderExtend = imsOrderExtendMapper.selectByExample(imsOrderExtendExample).get(0);
+        int newNum = (imsOrderExtend.getProductDoneNum()==null?0:imsOrderExtend.getProductDoneNum()) + productNum;
+        imsOrderExtend.setProductDoneNum(newNum);
+        imsOrderExtendMapper.updateByPrimaryKey(imsOrderExtend);
     }
 }

@@ -90,7 +90,7 @@ function DoWarehousingCheck($scope, $http) {
     fd.append("goodsRecords", goodsRecords);
     fd.append("orderNo", $scope.orderNo);
     fd.append("orderStock", $scope.orderStock);
-    fd.append("type", "1");
+    fd.append("type", "4");
     $http.post('/Operation/addNewOperation', fd, { //使用post方法 传送formdata对象
         transformRequest: angular.identity, //使用angular传参认证
         headers: {

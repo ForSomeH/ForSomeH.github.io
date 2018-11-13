@@ -12,9 +12,9 @@
         <!-- 配置数据库连接 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3306/test"
+                connectionURL="jdbc:mysql://47.94.90.11:3306/ims"
                 userId="root"
-                password="root">
+                password="YunZheng0309.">
         </jdbcConnection>
         <javaTypeResolver>
             <property
@@ -54,8 +54,8 @@
 
 
         <!-- table指定每个表的生成策略 -->
-        <table tableName="ims_order_extend">
-            <generatedKey column="ORDER_EXTEND_NO" sqlStatement="MySql" identity="true"/>
+        <table tableName="vw_operation_detail">
+            <!--<generatedKey column="OPERATION_DETAIL_NO" sqlStatement="MySql" identity="true"/>-->
         </table>
 
     </context>

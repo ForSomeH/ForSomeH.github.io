@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ims.mapper.ImsOperationDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ims.entity.ImsOperationDetail" >
+    <id column="OPERATION_DETAIL_NO" property="operationDetailNo" jdbcType="INTEGER" />
+    <result column="OPERATION_NO" property="operationNo" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="INTEGER" />
+    <result column="OPERATION_NUM" property="operationNum" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="CRATE_TIME" property="crateTime" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFYER_TIME" property="lastModifyerTime" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFIER" property="lastModifier" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="OFFICE" property="office" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OPERATION_DETAIL_NO, OPERATION_NO, PRODUCT_NO, OPERATION_NUM, REMARKS, CRATE_TIME, 
+    CREATER, LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, OFFICE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ims.entity.ImsOperationDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ims_operation_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_operation_detail
+    where OPERATION_DETAIL_NO = #{operationDetailNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ims_operation_detail
+    where OPERATION_DETAIL_NO = #{operationDetailNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ims.entity.ImsOperationDetailExample" >
+    delete from ims_operation_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ims.entity.ImsOperationDetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="operationDetailNo" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_operation_detail (OPERATION_NO, PRODUCT_NO, OPERATION_NUM, 
+      REMARKS, CRATE_TIME, CREATER, 
+      LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, 
+      OFFICE)
+    values (#{operationNo,jdbcType=VARCHAR}, #{productNo,jdbcType=INTEGER}, #{operationNum,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{crateTime,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{lastModifyerTime,jdbcType=VARCHAR}, #{lastModifier,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, 
+      #{office,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ims.entity.ImsOperationDetail" >
+    <selectKey resultType="java.lang.Integer" keyProperty="operationDetailNo" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_operation_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operationNo != null" >
+        OPERATION_NO,
+      </if>
+      <if test="productNo != null" >
+        PRODUCT_NO,
+      </if>
+      <if test="operationNum != null" >
+        OPERATION_NUM,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME,
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="office != null" >
+        OFFICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operationNo != null" >
+        #{operationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="operationNum != null" >
+        #{operationNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null" >
+        #{office,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ims.entity.ImsOperationDetailExample" resultType="java.lang.Integer" >
+    select count(*) from ims_operation_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ims_operation_detail
+    <set >
+      <if test="record.operationDetailNo != null" >
+        OPERATION_DETAIL_NO = #{record.operationDetailNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationNo != null" >
+        OPERATION_NO = #{record.operationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productNo != null" >
+        PRODUCT_NO = #{record.productNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationNum != null" >
+        OPERATION_NUM = #{record.operationNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crateTime != null" >
+        CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifier != null" >
+        LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.office != null" >
+        OFFICE = #{record.office,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ims_operation_detail
+    set OPERATION_DETAIL_NO = #{record.operationDetailNo,jdbcType=INTEGER},
+      OPERATION_NO = #{record.operationNo,jdbcType=VARCHAR},
+      PRODUCT_NO = #{record.productNo,jdbcType=INTEGER},
+      OPERATION_NUM = #{record.operationNum,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      OFFICE = #{record.office,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ims.entity.ImsOperationDetail" >
+    update ims_operation_detail
+    <set >
+      <if test="operationNo != null" >
+        OPERATION_NO = #{operationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        PRODUCT_NO = #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="operationNum != null" >
+        OPERATION_NUM = #{operationNum,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null" >
+        OFFICE = #{office,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OPERATION_DETAIL_NO = #{operationDetailNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ims.entity.ImsOperationDetail" >
+    update ims_operation_detail
+    set OPERATION_NO = #{operationNo,jdbcType=VARCHAR},
+      PRODUCT_NO = #{productNo,jdbcType=INTEGER},
+      OPERATION_NUM = #{operationNum,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      OFFICE = #{office,jdbcType=VARCHAR}
+    where OPERATION_DETAIL_NO = #{operationDetailNo,jdbcType=INTEGER}
+  </update>
+</mapper>

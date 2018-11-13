@@ -17,14 +17,14 @@ public interface ImsProductService {
      * @param imsProduct
      * @return
      */
-    public int saveProduct(ImsProduct imsProduct);
+    int saveProduct(ImsProduct imsProduct);
 
     /**
      * 获取所有的产品
      *
      * @return
      */
-    public List<VwProduct> getAllVwProduct();
+    List<VwProduct> getAllVwProduct();
 
     int updateProduct(ImsProduct imsProduct);
 

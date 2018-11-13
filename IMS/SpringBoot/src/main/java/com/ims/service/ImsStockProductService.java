@@ -13,7 +13,7 @@ public interface ImsStockProductService {
     /**
      * 更新仓库商品的数量
      */
-    public void updateProducts(ImsStock stock, ImsProduct product, String Num);
+    void updateProducts(ImsStock stock, ImsProduct product, String Num);
 
     /**
      * 获取全部仓库的商品信息

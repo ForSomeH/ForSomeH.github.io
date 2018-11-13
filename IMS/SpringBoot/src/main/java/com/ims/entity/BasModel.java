@@ -10,7 +10,7 @@ public class BasModel {
      * 创建时间
      */
     private String crateTime;
-
+    private String isDeleted;
 
     /**
      * 创建人
@@ -69,4 +69,7 @@ public class BasModel {
     }
 
 
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

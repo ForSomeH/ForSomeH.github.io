@@ -123,6 +123,12 @@ public class LoginController {
         return "typeMange";
     }
 
+    /**
+     * 订单管理
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping("/billMange")
     public String billMange(Model model) {
 
@@ -139,21 +145,41 @@ public class LoginController {
         return "index";
     }
 
+    /**
+     * 采购订单管理
+     *
+     * @return
+     */
     @RequestMapping("/PurchaseOrder")
     public String orderAdd() {
         return "PurchaseOrder";
     }
 
-    @RequestMapping("/orderExtendOutMange")
+    /**
+     * 销售出库
+     *
+     * @return
+     */
+    @RequestMapping("/SalesOrder")
     public String orderExtendOutMange() {
-        return "orderExtendOutMange";
+        return "SalesOrder";
     }
 
+    /**
+     * 订单扩展查看
+     *
+     * @return
+     */
     @RequestMapping("/orderExtendView")
     public String orderView() {
         return "orderExtendView";
     }
 
+    /**
+     * 销售管理
+     *
+     * @return
+     */
     @RequestMapping("/SalesOrderMange")
     public String orderMangeOut() {
         return "SalesOrderMange";
@@ -178,4 +204,43 @@ public class LoginController {
     public String Warehousing() {
         return "Warehousing";
     }
+
+    /**
+     * 订单出库操作界面
+     */
+    @RequestMapping("/Delivery")
+    public String Delivery() {
+        return "Delivery";
+    }
+
+    /**
+     * 入库管理界面
+     *
+     * @return
+     */
+    @RequestMapping("/InStockMange")
+    public String InStockMange() {
+        return "InStockMange";
+    }
+
+    /**
+     * 入库管理明细界面
+     *
+     * @return
+     */
+    @RequestMapping("/InStock")
+    public String InStock() {
+        return "InStock";
+    }
+
+    /**
+     * 出库管理界面
+     *
+     * @return
+     */
+    @RequestMapping("/outStockMange")
+    public String outStockMange() {
+        return "InStockMange";
+    }
+
 }
