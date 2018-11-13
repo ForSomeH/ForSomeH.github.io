@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ims.mapper.ImsOrderExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.ims.entity.ImsOrderExtend" >
+    <id column="ORDER_EXTEND_NO" property="orderExtendNo" jdbcType="INTEGER" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="INTEGER" />
+    <result column="PRODUCT_DONE_NUM" property="productDoneNum" jdbcType="INTEGER" />
+    <result column="PRODUCT_NUM" property="productNum" jdbcType="INTEGER" />
+    <result column="CRATE_TIME" property="crateTime" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFYER_TIME" property="lastModifyerTime" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFIER" property="lastModifier" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ORDER_EXTEND_NO, ORDER_NO, PRODUCT_NO, PRODUCT_DONE_NUM, PRODUCT_NUM, CRATE_TIME, 
+    CREATER, LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ims.entity.ImsOrderExtendExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ims_order_extend
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_order_extend
+    where ORDER_EXTEND_NO = #{orderExtendNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ims_order_extend
+    where ORDER_EXTEND_NO = #{orderExtendNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ims.entity.ImsOrderExtendExample" >
+    delete from ims_order_extend
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ims.entity.ImsOrderExtend" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderExtendNo" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_order_extend (ORDER_NO, PRODUCT_NO, PRODUCT_DONE_NUM, 
+      PRODUCT_NUM, CRATE_TIME, CREATER, 
+      LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, 
+      REMARKS)
+    values (#{orderNo,jdbcType=INTEGER}, #{productNo,jdbcType=INTEGER}, #{productDoneNum,jdbcType=INTEGER}, 
+      #{productNum,jdbcType=INTEGER}, #{crateTime,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{lastModifyerTime,jdbcType=VARCHAR}, #{lastModifier,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ims.entity.ImsOrderExtend" >
+    <selectKey resultType="java.lang.Integer" keyProperty="orderExtendNo" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_order_extend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="productNo != null" >
+        PRODUCT_NO,
+      </if>
+      <if test="productDoneNum != null" >
+        PRODUCT_DONE_NUM,
+      </if>
+      <if test="productNum != null" >
+        PRODUCT_NUM,
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME,
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="productNo != null" >
+        #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="productDoneNum != null" >
+        #{productDoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="productNum != null" >
+        #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ims.entity.ImsOrderExtendExample" resultType="java.lang.Integer" >
+    select count(*) from ims_order_extend
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ims_order_extend
+    <set >
+      <if test="record.orderExtendNo != null" >
+        ORDER_EXTEND_NO = #{record.orderExtendNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNo != null" >
+        ORDER_NO = #{record.orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.productNo != null" >
+        PRODUCT_NO = #{record.productNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.productDoneNum != null" >
+        PRODUCT_DONE_NUM = #{record.productDoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.productNum != null" >
+        PRODUCT_NUM = #{record.productNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.crateTime != null" >
+        CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifier != null" >
+        LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ims_order_extend
+    set ORDER_EXTEND_NO = #{record.orderExtendNo,jdbcType=INTEGER},
+      ORDER_NO = #{record.orderNo,jdbcType=INTEGER},
+      PRODUCT_NO = #{record.productNo,jdbcType=INTEGER},
+      PRODUCT_DONE_NUM = #{record.productDoneNum,jdbcType=INTEGER},
+      PRODUCT_NUM = #{record.productNum,jdbcType=INTEGER},
+      CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ims.entity.ImsOrderExtend" >
+    update ims_order_extend
+    <set >
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="productNo != null" >
+        PRODUCT_NO = #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="productDoneNum != null" >
+        PRODUCT_DONE_NUM = #{productDoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="productNum != null" >
+        PRODUCT_NUM = #{productNum,jdbcType=INTEGER},
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORDER_EXTEND_NO = #{orderExtendNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ims.entity.ImsOrderExtend" >
+    update ims_order_extend
+    set ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      PRODUCT_NO = #{productNo,jdbcType=INTEGER},
+      PRODUCT_DONE_NUM = #{productDoneNum,jdbcType=INTEGER},
+      PRODUCT_NUM = #{productNum,jdbcType=INTEGER},
+      CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where ORDER_EXTEND_NO = #{orderExtendNo,jdbcType=INTEGER}
+  </update>
+</mapper>

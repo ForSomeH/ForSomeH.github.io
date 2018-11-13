@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ims.mapper.ImsCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.ims.entity.ImsCustomer" >
+    <id column="CUSTOMER_CODE" property="customerCode" jdbcType="INTEGER" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_TYPE" property="customerType" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_TEL" property="customerTel" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ADDR" property="customerAddr" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_PAY_TYPE" property="customerPayType" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_COMPANY" property="customerCompany" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="CRATE_TIME" property="crateTime" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFYER_TIME" property="lastModifyerTime" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFIER" property="lastModifier" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="OFFICE" property="office" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CUSTOMER_CODE, CUSTOMER_NAME, CUSTOMER_TYPE, CUSTOMER_TEL, CUSTOMER_ADDR, CUSTOMER_PAY_TYPE, 
+    CUSTOMER_COMPANY, REMARKS, CRATE_TIME, CREATER, LAST_MODIFYER_TIME, LAST_MODIFIER, 
+    IS_DELETED, OFFICE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ims.entity.ImsCustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ims_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_customer
+    where CUSTOMER_CODE = #{customerCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ims_customer
+    where CUSTOMER_CODE = #{customerCode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ims.entity.ImsCustomerExample" >
+    delete from ims_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ims.entity.ImsCustomer" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customerCode" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_customer (CUSTOMER_NAME, CUSTOMER_TYPE, CUSTOMER_TEL, 
+      CUSTOMER_ADDR, CUSTOMER_PAY_TYPE, CUSTOMER_COMPANY, 
+      REMARKS, CRATE_TIME, CREATER, 
+      LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, 
+      OFFICE)
+    values (#{customerName,jdbcType=VARCHAR}, #{customerType,jdbcType=VARCHAR}, #{customerTel,jdbcType=VARCHAR}, 
+      #{customerAddr,jdbcType=VARCHAR}, #{customerPayType,jdbcType=VARCHAR}, #{customerCompany,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{crateTime,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{lastModifyerTime,jdbcType=VARCHAR}, #{lastModifier,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, 
+      #{office,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ims.entity.ImsCustomer" >
+    <selectKey resultType="java.lang.Integer" keyProperty="customerCode" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="customerType != null" >
+        CUSTOMER_TYPE,
+      </if>
+      <if test="customerTel != null" >
+        CUSTOMER_TEL,
+      </if>
+      <if test="customerAddr != null" >
+        CUSTOMER_ADDR,
+      </if>
+      <if test="customerPayType != null" >
+        CUSTOMER_PAY_TYPE,
+      </if>
+      <if test="customerCompany != null" >
+        CUSTOMER_COMPANY,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME,
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="office != null" >
+        OFFICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerTel != null" >
+        #{customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddr != null" >
+        #{customerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPayType != null" >
+        #{customerPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null" >
+        #{office,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ims.entity.ImsCustomerExample" resultType="java.lang.Integer" >
+    select count(*) from ims_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ims_customer
+    <set >
+      <if test="record.customerCode != null" >
+        CUSTOMER_CODE = #{record.customerCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerName != null" >
+        CUSTOMER_NAME = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerType != null" >
+        CUSTOMER_TYPE = #{record.customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerTel != null" >
+        CUSTOMER_TEL = #{record.customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerAddr != null" >
+        CUSTOMER_ADDR = #{record.customerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPayType != null" >
+        CUSTOMER_PAY_TYPE = #{record.customerPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerCompany != null" >
+        CUSTOMER_COMPANY = #{record.customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crateTime != null" >
+        CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifier != null" >
+        LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.office != null" >
+        OFFICE = #{record.office,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ims_customer
+    set CUSTOMER_CODE = #{record.customerCode,jdbcType=INTEGER},
+      CUSTOMER_NAME = #{record.customerName,jdbcType=VARCHAR},
+      CUSTOMER_TYPE = #{record.customerType,jdbcType=VARCHAR},
+      CUSTOMER_TEL = #{record.customerTel,jdbcType=VARCHAR},
+      CUSTOMER_ADDR = #{record.customerAddr,jdbcType=VARCHAR},
+      CUSTOMER_PAY_TYPE = #{record.customerPayType,jdbcType=VARCHAR},
+      CUSTOMER_COMPANY = #{record.customerCompany,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      OFFICE = #{record.office,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ims.entity.ImsCustomer" >
+    update ims_customer
+    <set >
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerType != null" >
+        CUSTOMER_TYPE = #{customerType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerTel != null" >
+        CUSTOMER_TEL = #{customerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddr != null" >
+        CUSTOMER_ADDR = #{customerAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPayType != null" >
+        CUSTOMER_PAY_TYPE = #{customerPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCompany != null" >
+        CUSTOMER_COMPANY = #{customerCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null" >
+        OFFICE = #{office,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CUSTOMER_CODE = #{customerCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ims.entity.ImsCustomer" >
+    update ims_customer
+    set CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUSTOMER_TYPE = #{customerType,jdbcType=VARCHAR},
+      CUSTOMER_TEL = #{customerTel,jdbcType=VARCHAR},
+      CUSTOMER_ADDR = #{customerAddr,jdbcType=VARCHAR},
+      CUSTOMER_PAY_TYPE = #{customerPayType,jdbcType=VARCHAR},
+      CUSTOMER_COMPANY = #{customerCompany,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      OFFICE = #{office,jdbcType=VARCHAR}
+    where CUSTOMER_CODE = #{customerCode,jdbcType=INTEGER}
+  </update>
+</mapper>

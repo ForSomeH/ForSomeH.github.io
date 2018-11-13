@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="angular-bind-html-compile">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="angular/angular.min.js"></script>
+</head>
+<body ng-controller="myController">
+<div bind-html-compile id="myDiv"></div><!--这个div里面的内容是动态加载的，需要手动编译-->
+</body>
+</html>
+<script>
+    var app = angular.module('angular-bind-html-compile', []);
+    /*注意：指令名bindHtmlCompile，要与监听的div一致
+    * */
+    app.directive('bindHtmlCompile', ['$compile',
+        function ($compile) {
+            return {
+                restrict: 'EA',
+                link: function (scope, element) {
+                    /*执行监听方法*/
+                    scope.$watch(
+                        function () {
+                            return angular.element(document.querySelector("#myDiv123")).html();
+                            /*监听dom元素，监听id为myDiv的html的变化*/
+                        },
+                        function (value) {/*div一有变化，就执行这个方法*/
+                            element.html(value);
+                            $compile(element.contents())(scope);
+                            /*手动编译这块代码*/
+                        });
+                }
+            };
+        }]
+    );
+
+
+    app.controller("myController", function ($scope, $interval) {
+        $scope.test = "动态加载";
+        /*模拟动态生成，我写了一个定时添加功能，每隔5秒在myDiv中加一个代码块，并且该代码快中有angularjs属性，
+        如果生效则会显示成<a href='sss'>动态加载</a>*/
+        $interval(function () {
+            angular.element(document.querySelector("#myDiv")).append("<a href='#' ng-click='test1()'>{{test}}</a>");
+        }, 5000);
+        $scope.test1 = function () {
+            alert("123");
+        }
+    })
+</script>

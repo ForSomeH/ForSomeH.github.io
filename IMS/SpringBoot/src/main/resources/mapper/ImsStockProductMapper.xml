@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ims.mapper.ImsStockProductMapper" >
+  <resultMap id="BaseResultMap" type="com.ims.entity.ImsStockProduct" >
+    <id column="IMS_STOCK_PRODUCT_ID" property="imsStockProductId" jdbcType="INTEGER" />
+    <result column="PRODUCT_NO" property="productNo" jdbcType="INTEGER" />
+    <result column="STOCK_CODE" property="stockCode" jdbcType="INTEGER" />
+    <result column="STOCK_PRODUCT_NUM" property="stockProductNum" jdbcType="INTEGER" />
+    <result column="CRATE_TIME" property="crateTime" jdbcType="VARCHAR" />
+    <result column="CREATER" property="creater" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFYER_TIME" property="lastModifyerTime" jdbcType="VARCHAR" />
+    <result column="LAST_MODIFIER" property="lastModifier" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IMS_STOCK_PRODUCT_ID, PRODUCT_NO, STOCK_CODE, STOCK_PRODUCT_NUM, CRATE_TIME, CREATER, 
+    LAST_MODIFYER_TIME, LAST_MODIFIER, IS_DELETED, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ims.entity.ImsStockProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ims_stock_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ims_stock_product
+    where IMS_STOCK_PRODUCT_ID = #{imsStockProductId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ims_stock_product
+    where IMS_STOCK_PRODUCT_ID = #{imsStockProductId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ims.entity.ImsStockProductExample" >
+    delete from ims_stock_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ims.entity.ImsStockProduct" >
+    <selectKey resultType="java.lang.Integer" keyProperty="imsStockProductId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_stock_product (PRODUCT_NO, STOCK_CODE, STOCK_PRODUCT_NUM, 
+      CRATE_TIME, CREATER, LAST_MODIFYER_TIME, 
+      LAST_MODIFIER, IS_DELETED, REMARKS
+      )
+    values (#{productNo,jdbcType=INTEGER}, #{stockCode,jdbcType=INTEGER}, #{stockProductNum,jdbcType=INTEGER}, 
+      #{crateTime,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{lastModifyerTime,jdbcType=VARCHAR}, 
+      #{lastModifier,jdbcType=VARCHAR}, #{isDeleted,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ims.entity.ImsStockProduct" >
+    <selectKey resultType="java.lang.Integer" keyProperty="imsStockProductId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ims_stock_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productNo != null" >
+        PRODUCT_NO,
+      </if>
+      <if test="stockCode != null" >
+        STOCK_CODE,
+      </if>
+      <if test="stockProductNum != null" >
+        STOCK_PRODUCT_NUM,
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME,
+      </if>
+      <if test="creater != null" >
+        CREATER,
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME,
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productNo != null" >
+        #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        #{stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="stockProductNum != null" >
+        #{stockProductNum,jdbcType=INTEGER},
+      </if>
+      <if test="crateTime != null" >
+        #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ims.entity.ImsStockProductExample" resultType="java.lang.Integer" >
+    select count(*) from ims_stock_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ims_stock_product
+    <set >
+      <if test="record.imsStockProductId != null" >
+        IMS_STOCK_PRODUCT_ID = #{record.imsStockProductId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productNo != null" >
+        PRODUCT_NO = #{record.productNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockCode != null" >
+        STOCK_CODE = #{record.stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.stockProductNum != null" >
+        STOCK_PRODUCT_NUM = #{record.stockProductNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.crateTime != null" >
+        CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null" >
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifier != null" >
+        LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDeleted != null" >
+        IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ims_stock_product
+    set IMS_STOCK_PRODUCT_ID = #{record.imsStockProductId,jdbcType=INTEGER},
+      PRODUCT_NO = #{record.productNo,jdbcType=INTEGER},
+      STOCK_CODE = #{record.stockCode,jdbcType=INTEGER},
+      STOCK_PRODUCT_NUM = #{record.stockProductNum,jdbcType=INTEGER},
+      CRATE_TIME = #{record.crateTime,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{record.lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{record.lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{record.isDeleted,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ims.entity.ImsStockProduct" >
+    update ims_stock_product
+    <set >
+      <if test="productNo != null" >
+        PRODUCT_NO = #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="stockCode != null" >
+        STOCK_CODE = #{stockCode,jdbcType=INTEGER},
+      </if>
+      <if test="stockProductNum != null" >
+        STOCK_PRODUCT_NUM = #{stockProductNum,jdbcType=INTEGER},
+      </if>
+      <if test="crateTime != null" >
+        CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifyerTime != null" >
+        LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifier != null" >
+        LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IMS_STOCK_PRODUCT_ID = #{imsStockProductId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ims.entity.ImsStockProduct" >
+    update ims_stock_product
+    set PRODUCT_NO = #{productNo,jdbcType=INTEGER},
+      STOCK_CODE = #{stockCode,jdbcType=INTEGER},
+      STOCK_PRODUCT_NUM = #{stockProductNum,jdbcType=INTEGER},
+      CRATE_TIME = #{crateTime,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      LAST_MODIFYER_TIME = #{lastModifyerTime,jdbcType=VARCHAR},
+      LAST_MODIFIER = #{lastModifier,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where IMS_STOCK_PRODUCT_ID = #{imsStockProductId,jdbcType=INTEGER}
+  </update>
+</mapper>
