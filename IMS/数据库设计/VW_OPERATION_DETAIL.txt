@@ -1,4 +1,0 @@
-CREATE VIEW vw_operation_detail AS
-SELECT a.OPERATION_NO,a.OPERATION_DETAIL_NO,a.OPERATION_NUM,b.*,c.TYPE_NAME
-FROM ims_operation_detail a,ims_product b,ims_type c
-where a.PRODUCT_NO=b.PRODUCT_NO and b.PRODUCT_TYPE=c.TYPE_CODE
